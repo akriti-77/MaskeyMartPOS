@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "ReceiptPreview";
+}
+
+<h2>Receipt</h2>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    @foreach (var item in ViewBag.Transaction.Items)
+    {
+        <tr>
+            <td>@item.Product.Name</td>
+            <td>@item.Quantity</td>
+            <td>$@item.Product.Price.ToString("F2")</td>
+            <td>$@((item.Product.Price * item.Quantity).ToString("F2"))</td>
+        </tr>
+    }
+</table>
+
+<p>Subtotal: $@ViewBag.Transaction.Subtotal.ToString("F2")</p>
+<p>Tax: $@ViewBag.Transaction.Tax.ToString("F2")</p>
+<p>Total: $@ViewBag.Transaction.Total.ToString("F2")</p>
+<p>Cash Amount: $@ViewBag.CashAmount.ToString("F2")</p>
+<p>Change: $@ViewBag.Change.ToString("F2")</p>
+
+<a asp-action="POSInterface" class="btn btn-primary">New Transaction</a>  

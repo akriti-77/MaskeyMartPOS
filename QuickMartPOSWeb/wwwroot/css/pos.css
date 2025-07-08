@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.categories {
+    margin-bottom: 20px;
+}
+
+.category {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+    .category:hover {
+        background-color: #e0e0e0;
+    }
+
+table {
+    width: 100%;
+}
+
+.cart {
+    margin-top: 20px;
+}
+
+.totals {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.payment {
+    margin-top: 20px;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+    .actions button {
+        margin-right: 10px;
+    }
+
+.quantity-input {
+    width: 60px;
+}
+
+@media (max-width: 768px) {
+    .category {
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,174 @@
+﻿@model QuickMartPOSWeb.Models.Product
+
+<div class="form-wrapper">
+    <h2 class="form-title">Add New Product</h2>
+
+    <form asp-action="AddProduct" method="post" class="product-form">
+        <div class="form-group">
+            <label asp-for="Name">Product Name</label>
+            <input asp-for="Name" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price">Price</label>
+            <input asp-for="Price" class="form-control" type="number" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Category" class="category-label">Category</label>
+            <select asp-for="Category" id="categorySelect" class="form-control">
+                <option value="">Select a category</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category">@category</option>
+                }
+                <option value="new">Add New Category</option>
+            </select>
+        </div>
+
+        <div class="form-group hidden" id="newCategoryGroup">
+            <label for="newCategory">New Category</label>
+            <input type="text" id="newCategory" name="newCategory" class="form-control">
+        </div>
+
+        <button type="submit" class="btn-submit">Add Product</button>
+        <div class ="mt-3">
+            <a asp-action="POSInterface" class="btn btn-primary"> Back</a>
+        </div>
+    </form>
+</div>
+
+
+<style>
+    /* Body background and font */
+    body {
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #eef4f8;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Center everything on the page */
+    .form-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    /* Form styling */
+    .product-form {
+        width: 90%;
+        max-width: 700px;
+        background-color: #f4f7fa;
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title */
+    .form-title {
+
+        text-align: center;
+        font-size: 36px; 
+        font-weight: 800; 
+        font-family: 'Poppins', sans-serif; 
+        color: #0a192f;
+        margin-bottom: 25px;
+    }
+
+    /* Form group */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        /* Labels */
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+    /* Slightly larger category label */
+    .category-label {
+        font-size: 18px;
+        color: #1a237e;
+    }
+
+    /* Input and select */
+    .form-control {
+        width: 100%;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #00bfa5;
+            outline: none;
+        }
+
+    /* Button */
+    .btn-submit {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 14px;
+        font-size: 17px;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+
+    /* Hidden input */
+    .hidden {
+        display: none;
+    }
+
+</style>
+
+<script>
+    document.getElementById('categorySelect').addEventListener('change', function () {
+        var newCategoryGroup = document.getElementById('newCategoryGroup');
+        if (this.value === 'new') {
+            newCategoryGroup.style.display = 'block';
+        } else {
+            newCategoryGroup.style.display = 'none';
+        }
+    });
+
+    document.getElementById('newCategory').addEventListener('input', function () {
+        var categorySelect = document.getElementById('categorySelect');
+        var newCategoryOption = categorySelect.querySelector('option[value="new"]');
+        var newCategoryValue = this.value.trim();
+
+        if (newCategoryValue) {
+            // Check if the new category already exists
+            var existingOption = Array.from(categorySelect.options).find(option => option.text.toLowerCase() === newCategoryValue.toLowerCase());
+
+            if (existingOption) {
+                categorySelect.value = existingOption.value;
+            } else {
+                // Add new option
+                var newOption = document.createElement('option');
+                newOption.value = newCategoryValue;
+                newOption.text = newCategoryValue;
+                categorySelect.insertBefore(newOption, newCategoryOption);
+                categorySelect.value = newCategoryValue;
+            }
+        }
+    });
+</script>
