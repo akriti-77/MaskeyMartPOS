@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: quickmart-pos
+    runtime: dotnet
+    buildCommand: dotnet build
+    startCommand: dotnet QuickMartPOSWeb.dll
+    region: oregon
+    plan: free
+    branch: main
+    autoDeploy: true
