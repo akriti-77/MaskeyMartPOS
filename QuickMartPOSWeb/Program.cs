@@ -13,7 +13,7 @@ if (string.IsNullOrEmpty(connectionString))
     throw new InvalidOperationException("Connection string 'QuickMartDatabase' not found.");
 }
 builder.Services.AddDbContext<QuickMartContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlite(builder.Configuration.GetConnectionString("QuickMartDatabase")));
 
 var app = builder.Build();
 
