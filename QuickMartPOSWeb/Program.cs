@@ -17,7 +17,7 @@ builder.Services.AddDbContext<QuickMartContext>(options =>
 
 var app = builder.Build();
 
-// Apply migrations at startup
+// Run migrations on startup to create/update the database
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<QuickMartContext>();
