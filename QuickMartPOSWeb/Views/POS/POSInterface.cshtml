@@ -1,384 +1,162 @@
-﻿@{
+﻿@await Html.PartialAsync("~/Views/Shared/Style.cshtml")
+
+@{
     ViewData["Title"] = "QuickMart POS System";
+    var date = ViewBag.DateTime.ToString("MMMM dd, yyyy");
+    var time = ViewBag.DateTime.ToString("hh:mm:ss tt");
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maskey Grocery Mart</title>
-    <style>
-
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-
-        .logo img {
-            max-width: 180px;
-        }
-
-        .categories {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .category {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: bold;
-        }
-
-            .category:hover {
-                background-color: #0056b3;
-            }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-
-        .cart, .totals, .actions {
-            margin-bottom: 30px;
-        }
-
-            .totals p, .payment p {
-                font-size: 1.2em;
-            }
-
-        .actions {
-            display: flex;
-            gap: 15px;
-        }
-
-            .actions button, .actions a {
-                display: inline-flex;
-                align-items: center;
-                background-color: #28a745;
-                color: #fff;
-                padding: 12px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                transition: background-color 0.3s ease;
-                font-weight: bold;
-            }
-
-                .actions button:hover, .actions a:hover {
-                    background-color: #218838;
-                }
-
-                .actions a.btn-primary {
-                    background-color: #007bff;
-                }
-
-                    .actions a.btn-primary:hover {
-                        background-color: #0056b3;
-                    }
-
-                .actions a i {
-                    margin-right: 8px;
-                }
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        .store-info {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-            .store-info h1 {
-                margin: 0 0 10px 0;
-              
-            }
-
-            .store-info p {
-                margin: 5px 0;
-                font-size: 20px;
-            }
-
-        .btn-add-cart {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-        }
-
-            .btn-add-cart:hover {
-                background-color: #218838;
-                animation: bounce 0.4s;
-            }
-
-            .btn-add-cart:active {
-                transform: scale(0.95); /* press effect */
-                background-color: #1e7e34;
-            }
-
-        @@keyframes bounce {
-            0%
-
-        {
-            transform: translateY(0);
-        }
-
-        30% {
-            transform: translateY(-5px);
-        }
-
-        60% {
-            transform: translateY(2px);
-        }
-
-        100% {
-            transform: translateY(0);
-        }
-
-        }
-
-        @@media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-                gap: 10px;
-            }
-
-            .store-info {
-                text-align: center;
-                width: 100%;
-            }
-
-            .categories {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-            }
-
-            .category {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-
-            table {
-                font-size: 14px;
-            }
-
-            th, td {
-                padding: 10px 6px;
-                word-break: break-word;
-                text-align: center;
-            }
-
-                td input[type="number"] {
-                    width: 50px;
-                }
-
-            .actions {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-
-                .actions button,
-                .actions a {
-                    width: 100%;
-                    justify-content: center;
-                    font-size: 15px;
-                    padding: 12px;
-                }
-
-            .form-group {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-            }
-
-                .form-group input[type="number"] {
-                    width: 100% !important;
-                }
-
-            .totals p {
-                font-size: 15px;
-                text-align: right;
-            }
-
-            .btn-add-cart {
-                font-size: 14px;
-                padding: 6px 10px;
-            }
-
-            .table-container {
-                overflow-x: auto;
-            }
-        }
-
-    </style>
-    <!-- Add FontAwesome or any other icon library for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <img src="~/dc378e6e-ecd3-4336-8e2c-efd4b2ff7c3a.jpeg" alt="Maskey Grocery Mart Logo" />
-            </div>
-            <div>
-
-                <div class="store-info">
-                    <h1>Maskey Grocery Mart</h1>
-                    <p>Lalitpur, Nepal</p>
-                    <p>Phone: 048540733</p>
-                </div>
-            
-            </div>
-            <div>
-                <div>Date/Time: <span id="datetime">@ViewBag.DateTime.ToString("g")</span></div>
-                <div>User: @ViewBag.UserName</div>
-            </div>
-        </div>
-
-        <div class="categories">
-            <div class="category" data-category="All">All</div>
-            @foreach (var category in ViewBag.Categories)
-            {
-                <div class="category" data-category="@category">@category</div>
-            }
-        </div>
-
-        <div class="table-container">
-            <table id="product-table">
-                <tr>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Qty</th>
-                    <th>Action</th>
-                </tr>
-                @foreach (var product in ViewBag.Inventory)
-                {
-                    <tr data-category="@product.Category">
-                        <td>@product.Name</td>
-                        <td>$@product.Price.ToString("F2")</td>
-                        <td><input type="number" value="1" min="1" id="qty-@product.Id" style="width: 60px;"></td>
-                        <td><button onclick="addToCart(@product.Id)" class="btn-add-cart">Add to Cart</button></td>
-                    </tr>
-                }
-            </table>
-        </div>
-
-        <div class="cart">
-            <h3>Cart Items:</h3>
-            <div class="table-container">
-                <table id="cart-items">
-                    <tr>
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
-                    @foreach (var item in ViewBag.CurrentTransaction.Items)
-                    {
-                        <tr>
-                            <td>@item.Product.Name</td>
-                            <td>@item.Quantity</td>
-                            <td>$@item.Product.Price.ToString("F2")</td>
-                            <td>$@((item.Product.Price * item.Quantity).ToString("F2"))</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        </div>
-
-        <div class="totals">
-            <p>Subtotal: $<span id="subtotal">@ViewBag.CurrentTransaction.Subtotal.ToString("F2")</span></p>
-            <p>Tax (8%): $<span id="tax">@ViewBag.CurrentTransaction.Tax.ToString("F2")</span></p>
-            <p>Total Amount: $<span id="total">@ViewBag.CurrentTransaction.Total.ToString("F2")</span></p>
-            <form asp-action="Checkout" method="post">
-                <div class="form-group">
-                    <label for="cashAmount">Cash Amount:</label>
-                    <input type="number" name="cashAmount" min="0" required style="width: 200px;" />
-                </div>
-                <button type="submit" class="btn btn-success">Checkout</button>
-            </form>
-        </div>
-
-        <div class="actions">
-            <button onclick="clearCart()" style="background-color: #dc3545; color: white; border: none; padding: 10px 16px; font-size: 15px; border-radius: 6px; cursor: pointer; margin-right: 10px;">
-                <i class="fas fa-times-circle" style="margin-right: 6px;"></i> Clear Cart
-            </button>
-            <a href="/POS/AddProduct" class="btn btn-primary">
-                <i class="fas fa-plus-circle"></i> Add New Product
-            </a>
-        </div>
+<div class="header">
+    <div class="logo">
+        <img src="~/dc378e6e-ecd3-4336-8e2c-efd4b2ff7c3a.jpeg" alt="Maskey Grocery Mart Logo" />
     </div>
 
-    <script src="~/js/pos.js"></script>
+    <div class="store-info">
+        <h1>Maskey Grocery Mart</h1>
+        <p>Lalitpur, Nepal</p>
+        <p>Phone: 048540733</p>
+    </div>
 
+    <div class="user-info">
+        <div class="info-row"><span class="label">Date:</span> <span>@date</span></div>
+        <div class="info-row"><span class="label">Time:</span> <span id="currentTime">@time</span></div>
+        <div class="info-row"><span class="label">User:</span> <span>@ViewBag.UserName</span></div>
+    </div>
+</div>
+
+<div class="categories">
+    <div class="category" data-category="All">All</div>
+    @foreach (var category in ViewBag.Categories)
+    {
+        <div class="category" data-category="@category">@category</div>
+    }
+</div>
+
+<div class="table-container">
+    <table id="product-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in ViewBag.Inventory)
+            {
+                <tr data-category="@product.Category">
+                    <td>@product.Name</td>
+                    <td>$@product.Price.ToString("F2")</td>
+                    <td>
+                        <input type="number" value="1" min="1" id="qty-@product.Id" style="width: 60px;" />
+                    </td>
+                    <td>
+                        <button onclick="addToCart(@product.Id)" class="btn-add-cart">Add to Cart</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="cart">
+    <h3>Cart Items:</h3>
+    <div class="table-container">
+        <table id="cart-items">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.CurrentTransaction.Items)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>$@item.Product.Price.ToString("F2")</td>
+                        <td>$@((item.Product.Price * item.Quantity).ToString("F2"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="totals">
+    <p>Subtotal: $<span id="subtotal">@ViewBag.CurrentTransaction.Subtotal.ToString("F2")</span></p>
+    <p>Tax (8%): $<span id="tax">@ViewBag.CurrentTransaction.Tax.ToString("F2")</span></p>
+    <p>Total Amount: $<span id="total">@ViewBag.CurrentTransaction.Total.ToString("F2")</span></p>
+</div>
+
+<form asp-action="Checkout" method="post">
+    <div class="form-group cash-input">
+        <label for="cashAmount">Cash Amount:</label>
+        <input type="number" name="cashAmount" min="0" required />
+    </div>
+    <button type="submit" class="btn btn-success">Checkout</button>
+</form>
+
+<div class="actions">
+    <button onclick="clearCart()" class="btn btn-danger">
+        <i class="fas fa-times-circle"></i> Clear Cart
+    </button>
+    <a href="/POS/AddProduct" class="btn btn-primary">
+        <i class="fas fa-plus-circle"></i> Add New Product
+    </a>
+</div>
+
+@section Scripts {
     <script src="~/js/pos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const categories = document.querySelectorAll('.category');
-            const productRows = document.querySelectorAll('#product-table tr:not(:first-child)');
+            const productRows = document.querySelectorAll('#product-table tbody tr');
 
             categories.forEach(category => {
                 category.addEventListener('click', function () {
                     const selectedCategory = this.getAttribute('data-category');
-
                     productRows.forEach(row => {
                         const rowCategory = row.getAttribute('data-category');
-                        if (selectedCategory === 'All' || rowCategory === selectedCategory) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
+                        row.style.display = (selectedCategory === 'All' || rowCategory === selectedCategory) ? '' : 'none';
                     });
                 });
             });
         });
     </script>
-</body>
-</html>
+    <script>
+                 function updateTime() {
+            const now = new Date();
+
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            
+            let ampm = '';
+            if (hours >= 12) {
+                ampm = ' PM';
+                if (hours > 12) hours -= 12;
+            } else {
+                ampm = ' AM';
+                if (hours === 0) hours = 12;
+            }
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = hours + ':' + minutes + ':' + seconds + ampm;
+
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        updateTime();
+
+        setInterval(updateTime, 1000);
+    </script>
+
+}

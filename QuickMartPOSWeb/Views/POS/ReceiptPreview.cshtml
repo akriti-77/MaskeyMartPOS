@@ -22,10 +22,13 @@
     }
 </table>
 
-<p>Subtotal: $@ViewBag.Transaction.Subtotal.ToString("F2")</p>
-<p>Tax: $@ViewBag.Transaction.Tax.ToString("F2")</p>
-<p>Total: $@ViewBag.Transaction.Total.ToString("F2")</p>
-<p>Cash Amount: $@ViewBag.CashAmount.ToString("F2")</p>
-<p>Change: $@ViewBag.Change.ToString("F2")</p>
+<div class="summary">
+    <p>Subtotal <span>$@ViewBag.Transaction.Subtotal.ToString("F2")</span></p>
+    <p>Tax <span>$@ViewBag.Transaction.Tax.ToString("F2")</span></p>
+    <p>Total <span>$@ViewBag.Transaction.Total.ToString("F2")</span></p>
+    <p>Cash Amount <span>$@ViewBag.CashAmount.ToString("F2")</span></p>
+    <p>Change <span>$@ViewBag.Change.ToString("F2")</span></p>
+</div>
+
 
 <a asp-action="POSInterface" class="btn btn-primary">New Transaction</a>  
