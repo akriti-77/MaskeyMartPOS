@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QuickMartPOSWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -31,10 +31,20 @@ namespace QuickMartPOSWeb.Controllers
         public IActionResult Checkout(decimal cashAmount)
         {
             ViewBag.CashAmount = cashAmount;
-            ViewBag.Change = cashAmount - currentTransaction.Total;
             ViewBag.Transaction = currentTransaction;
-            currentTransaction = new Transaction(); // Reset for next transaction
-            return View();
+
+            if (cashAmount < currentTransaction.Total)
+            {
+                ViewBag.Warning = "⚠ Insufficient cash amount. Please provide sufficient payment.";
+                ViewBag.Change = 0m;
+                return View();
+            }
+            else
+            {
+                ViewBag.Change = cashAmount - currentTransaction.Total;
+                currentTransaction = new Transaction(); 
+                return View();
+            }
         }
 
         [HttpGet]

@@ -1,7 +1,7 @@
 ﻿@await Html.PartialAsync("~/Views/Shared/Style.cshtml")
 
 @{
-    ViewData["Title"] = "QuickMart POS System";
+    ViewData["Title"] = "MaskeyMart POS";
     var date = ViewBag.DateTime.ToString("MMMM dd, yyyy");
     var time = ViewBag.DateTime.ToString("hh:mm:ss tt");
 }
@@ -88,17 +88,29 @@
 </div>
 
 <div class="totals">
-    <p>Subtotal: $<span id="subtotal">@ViewBag.CurrentTransaction.Subtotal.ToString("F2")</span></p>
-    <p>Tax (8%): $<span id="tax">@ViewBag.CurrentTransaction.Tax.ToString("F2")</span></p>
-    <p>Total Amount: $<span id="total">@ViewBag.CurrentTransaction.Total.ToString("F2")</span></p>
+    <div class="totals-row">
+        <span class="label">Subtotal:</span>
+        <span class="value">$<span id="subtotal">@ViewBag.CurrentTransaction.Subtotal.ToString("F2")</span></span>
+    </div>
+    <div class="totals-row">
+        <span class="label">Tax (8%):</span>
+        <span class="value">$<span id="tax">@ViewBag.CurrentTransaction.Tax.ToString("F2")</span></span>
+    </div>
+    <div class="totals-row total-highlight">
+        <span class="label">Total Amount:</span>
+        <span class="value">$<span id="total">@ViewBag.CurrentTransaction.Total.ToString("F2")</span></span>
+    </div>
 </div>
 
+
 <form asp-action="Checkout" method="post">
-    <div class="form-group cash-input">
-        <label for="cashAmount">Cash Amount:</label>
-        <input type="number" name="cashAmount" min="0" required />
+    <div class="right-align-form">
+        <div class="form-group cash-input">
+            <label for="cashAmount">Cash Amount:</label>
+            <input type="number" name="cashAmount" min="0" required />
+        </div>
+        <button type="submit" class="btn btn-success"> 🛒 Checkout</button>
     </div>
-    <button type="submit" class="btn btn-success"> 🛒 Checkout</button>
 </form>
 
 <div class="actions">

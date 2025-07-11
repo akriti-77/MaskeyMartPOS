@@ -3,18 +3,28 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MaskeyMartPOS</title>
+    <title>@ViewData["Title"]</title>
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QuickMartPOSWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/pos.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Favicon Setup -->
+    <link rel="icon" type="image/x-icon" href="~/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="~/favicon/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="~/favicon/android-chrome-512x512.png" />
+    <link rel="apple-touch-icon" href="~/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="~/favicon/site.webmanifest" />
 </head>
 
 <body>
     <div class="container">
         <main role="main" class="pb-3">
-
             @RenderBody()
         </main>
     </div>

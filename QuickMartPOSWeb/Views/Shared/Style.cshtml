@@ -106,44 +106,6 @@
                 text-align: right;
             }
 
-    .actions {
-        margin-top: 40px;
-        text-align: center;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 14px 28px;
-        font-size: 1rem;
-        border-radius: 8px;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        transition: all 0.3s ease;
-        margin: 10px 5px;
-        box-shadow: 0 3px 8px rgba(177, 94, 41, 0.2);
-        user-select: none;
-    }
-
-    .btn-primary {
-        background-color: #b15e29;
-        color: white;
-    }
-
-        .btn-primary:hover {
-            background-color: #7d3f12;
-            box-shadow: 0 5px 15px rgba(125, 63, 18, 0.5);
-        }
-
-    .btn-secondary {
-        background-color: #6a4f4b;
-        color: white;
-    }
-
-        .btn-secondary:hover {
-            background-color: #4e3a38;
-            box-shadow: 0 5px 15px rgba(78, 58, 56, 0.5);
-        }
 
     .footer {
         margin-top: 60px;
@@ -707,13 +669,67 @@
         margin: 20px 0;
     }
 
-        .totals p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 10px 0;
-            color: #2c3e50;
-            text-align: left;
+    .totals-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-size: 1.1rem;
+        border-bottom: 1px dashed #d6c3b5;
+        padding-bottom: 5px;
+    }
+
+        .totals-row:last-child {
+            border-bottom: none;
         }
+
+    .total-highlight {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: green;
+    }
+
+    .label {
+        text-align: left;
+        flex: 1;
+    }
+
+    .value {
+        text-align: right;
+        flex: 1;
+    }
+
+    @@media (max-width: 600px) {
+        .totals
+
+    {
+        padding: 15px 18px;
+        max-width: 100%;
+    }
+
+    .totals-row {
+        font-size: 1rem;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .value {
+        margin-top: 4px;
+        text-align: left;
+        font-weight: 600;
+    }
+
+        .totals-row {
+           
+            align-items: center;
+        }
+
+        .value {
+            margin-top: 0;
+        }
+    }
+
+    }
+
 
     .form-group {
         margin: 25px 0;
@@ -725,6 +741,7 @@
             display: block;
             margin-bottom: 10px;
             color: #1b4f72;
+            margin-right: 180px;
         }
 
         .form-group input[type="number"] {
@@ -783,10 +800,13 @@
             box-shadow: 0 12px 35px rgba(41, 120, 181, 0.5);
         }
 
+    .right-align-form {
+        text-align: right;
+    }
+
     .actions {
         display: flex;
         gap: 15px;
-        justify-content: center;
         margin-top: 30px;
         flex-wrap: wrap;
     }
@@ -978,5 +998,107 @@
         }
 
     }
-    
+
+    .receipt-summary {
+        max-width: 400px;
+        margin: 30px auto 20px;
+        padding: 20px;
+        background-color: #fff7ee;
+        border: 1px solid #c49b82;
+        border-radius: 12px;
+        font-family: 'Courier New', Courier, monospace;
+        box-shadow: 0 4px 12px rgba(106, 79, 75, 0.1);
+        color: #5b4636;
+        margin-left: 0;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px dashed #c49b82;
+        font-size: 1.1rem;
+    }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+    .total-row {
+        font-weight: 700;
+        color: #2e7d32; /* burnt orange */
+        font-size: 1.2rem;
+    }
+
+    .change-row {
+        font-weight: 600;
+        color: #1b4f72; /* deep blue */
+    }
+
+    .label {
+        flex: 1;
+        text-align: left;
+    }
+
+    .value {
+        flex: 1;
+        text-align: right;
+    }
+
+    .warning {
+        color: #d9534f; /* Bootstrap red */
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+        border: none;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            color: white;
+        }
+
+</style>
+<style>
+    .receipt-actions {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+        justify-content: flex-start;
+    }
+
+        .receipt-actions .btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* New Transaction - warm coral-orange */
+        .receipt-actions .new-btn {
+            background-color: #e17055;
+        }
+
+            .receipt-actions .new-btn:hover {
+                background-color: #d35400;
+            }
+
+        /* Print Receipt - deep brown from your theme */
+        .receipt-actions .print-btn {
+            background-color: #6a4f4b;
+        }
+
+            .receipt-actions .print-btn:hover {
+                background-color: #523b38;
+            }
+
 </style>

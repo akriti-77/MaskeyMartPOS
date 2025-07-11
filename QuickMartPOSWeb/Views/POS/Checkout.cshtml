@@ -4,9 +4,23 @@
     ViewData["Title"] = "Checkout";
 }
 
+<div class="header print-only">
+    <div class="logo">
+        <img src="~/dc378e6e-ecd3-4336-8e2c-efd4b2ff7c3a.jpeg" alt="Maskey Grocery Mart Logo" class="logo-icon" />
+    </div>
+
+    <div class="store-info">
+        <h1>Maskey Grocery Mart</h1>
+        <p>Lalitpur, Nepal</p>
+        <p>Phone: 048540733</p>
+    </div>
+</div>
+
 <h2>Receipt</h2>
 
-<table class="receipt-table">
+<div class="table-container">
+    <table id="product-table">
+
     <tr>
         <th>Name</th>
         <th>Quantity</th>
@@ -23,15 +37,50 @@
         </tr>
     }
 </table>
+</div>
 
-<p>Subtotal: $@ViewBag.Transaction.Subtotal.ToString("F2")</p>
-<p>Tax: $@ViewBag.Transaction.Tax.ToString("F2")</p>
-<p>Total: $@ViewBag.Transaction.Total.ToString("F2")</p>
-<p>Cash Amount: $@ViewBag.CashAmount.ToString("F2")</p>
-<p>Change: $@ViewBag.Change.ToString("F2")</p>
+@if (ViewBag.Warning != null)
+{
+    <p class="warning">@ViewBag.Warning</p>
+}
 
-<a asp-action="POSInterface" class="btn btn-primary">New Transaction</a>
-<button onclick="printReceipt()" class="btn btn-secondary">Print Receipt</button>
+
+<div class="receipt-summary">
+    <div class="summary-row">
+        <span class="label">Subtotal:</span>
+        <span class="value">$@ViewBag.Transaction.Subtotal.ToString("F2")</span>
+    </div>
+    <div class="summary-row">
+        <span class="label">Tax:</span>
+        <span class="value">$@ViewBag.Transaction.Tax.ToString("F2")</span>
+    </div>
+    <div class="summary-row total-row">
+        <span class="label">Total:</span>
+        <span class="value">$@ViewBag.Transaction.Total.ToString("F2")</span>
+    </div>
+    <div class="summary-row">
+        <span class="label">Cash Paid:</span>
+        <span class="value">$@ViewBag.CashAmount.ToString("F2")</span>
+    </div>
+    <div class="summary-row change-row">
+        <span class="label">Change:</span>
+        <span class="value">$@ViewBag.Change.ToString("F2")</span>
+    </div>
+</div>
+
+@if (ViewBag.Warning != null)
+{
+    <a asp-action="POSInterface" class="btn btn-warning">🔄 Return to POS</a>
+}
+else
+{
+    <div class="receipt-actions">
+        <a asp-action="POSInterface" class="btn new-btn">New Transaction</a>
+        <button onclick="printReceipt()" class="btn print-btn">Print Receipt</button>
+    </div>
+
+}
+
 
 <div class="footer">
     Thank you for shopping at MaskeykMart!<br />
@@ -44,3 +93,4 @@
     }
 </script>
 
+    
